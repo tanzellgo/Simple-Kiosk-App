@@ -1,0 +1,44 @@
+{% load static %}
+<html>
+    <head>
+        <script src="{% static '/bootstrap/jquery-3.4.1.slim.min.js' %}"></script>
+        <script src="{% static '/bootstrap/popper.min.js' %}"></script>
+        <script src="{% static '/bootstrap/js/bootstrap.min.js' %}"></script>
+        <link rel="stylesheet" href="{% static '/bootstrap/css/bootstrap.css' %}">
+    </head>
+    <body>
+        <div class="container-fluid">
+            <form method="POST" action="{% url 'addfood' %}">{% csrf_token %}
+                <div class="d-flex flex-column justify-content-around align-items-center" style="height: 609px; ">
+                    <div>
+                        <h2> Food Entry / Update</h2>
+                    </div>
+    
+                    <div class="d-flex d-inline-flex justify-content-between form-group" style="width: 45vw;">
+                        <label for="fname"> Name: </label>
+                        <input type="text" class="form-control w-50" style="margin-right: 130px;" id="fname" name="fname">
+                    </div>
+                    
+                    <div class="d-flex d-inline-flex justify-content-between form-group" style="width: 45vw;">
+                        <label for="fdescription" class="my-auto"> Description: </label>
+                        <textarea class="form-control w-50" rows="5" style="margin-right: 130px;" id="fdescription" name="fdescription"></textarea>
+                    </div> 
+
+                    <div class="d-flex d-inline-flex justify-content-between form-group" style="width: 45vw;">
+                        <label for="fprice"> Price: </label>
+                        <input type="number" class="form-control w-50" style="margin-right: 130px;" id="fprice" name="fprice">
+                    </div>
+                                                          
+                    <div>
+                        <button type="submit" class="btn btn-secondary">Add / Edit Food</button>
+                    </div>
+                    
+                    <div>
+                        <a href="{% url 'main' %}"><button type="button" class="btn btn-secondary">Back to Main</button></a>
+                    </div> 
+                </div>  
+            </form>                               
+        </div>
+        </div>
+    </body>
+</html>

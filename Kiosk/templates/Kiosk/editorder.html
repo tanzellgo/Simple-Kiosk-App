@@ -1,0 +1,85 @@
+{% load static %}
+<html>
+    <head>
+        <script src="{% static '/bootstrap/jquery-3.4.1.slim.min.js' %}"></script>
+        <script src="{% static '/bootstrap/popper.min.js' %}"></script>
+        <script src="{% static '/bootstrap/js/bootstrap.min.js' %}"></script>
+        <link rel="stylesheet" href="{% static '/bootstrap/css/bootstrap.css' %}">
+    </head>
+    <body>
+        <div class="container-fluid">
+            <form method="POST" action="{% url 'editorder' pk=o.pk %}">{% csrf_token %}
+                <div class="d-flex flex-column justify-content-around align-items-center" style="height: 609px; ">
+                    <div>
+                        <h2> Order Entry / Update</h2>
+                    </div>
+    
+                    <div class="d-flex d-inline-flex justify-content-between form-group" style="width: 45vw;">
+                        <label for="ocname"> Customer: </label>
+                        <select class="form-control w-50" style="margin-right: 130px;" id="ocname" name="ocname">
+                            {% for c in customer %}
+                            <option value = "{{ c.pk }}"> {{ c.name }} </option>
+                            {% endfor %}
+                            <option value = "{{ o.cust_order.name }}" selected> {{ o.cust_order.name }} </option>
+                        </select>
+                    </div>
+                    
+                    <div class="d-flex d-inline-flex justify-content-between form-group" style="width: 45vw;">
+                        <label for="forder" class="my-auto"> Food Order: </label>
+                        <select class="form-control w-50" style="margin-right: 130px;" id="forder" name="forder">
+                            {% for f in food %}
+                            <option value = "{{ f.pk }}"> {{ f.name }} </option>
+                            {% endfor %}
+                            <option value = "{{ ol.food }}" selected> {{ ol.food.name }} </option>
+                        </select>
+                    </div> 
+
+                    <div class="d-flex d-inline-flex justify-content-between form-group" style="width: 45vw;">
+                        <label for="payment"> Payment: </label>
+                        {% if o.mode_payment == 'Cash' %}
+                        <div class="d-flex align-items-center">
+                            <input type="radio" class="form-control" style="width: auto; margin: 0 10px 0 -150px;" id="payment" name="payment" value="Cash" checked> 
+                            <p style="margin: 0;">Cash</p>
+                        </div>
+                        
+                        <div class="d-flex align-items-center">
+                            <input type="radio" class="form-control" style="width: auto; margin: 0 10px 0 -210px;" id="payment" name="payment" value="Card">
+                            <p style="margin: 0;">Card</p>
+                        </div>
+                        {% elif o.mode_payment == 'Card' %}
+                        <div class="d-flex align-items-center">
+                            <input type="radio" class="form-control" style="width: auto; margin: 0 10px 0 -150px;" id="payment" name="payment" value="Cash"> 
+                            <p style="margin: 0;">Cash</p>
+                        </div>
+                        
+                        <div class="d-flex align-items-center">
+                            <input type="radio" class="form-control" style="width: auto; margin: 0 10px 0 -210px;" id="payment" name="payment" value="Card" checked>
+                            <p style="margin: 0;">Card</p>
+                        </div>
+                        {% endif %}
+
+                    </div>
+
+                    <div class="d-flex d-inline-flex justify-content-between form-group" style="width: 45vw;">
+                        <label for="quantity"> Quantity: </label>
+                        <input type="number" class="form-control w-50" style="margin-right: 130px;" id="quantity" name="quantity" value= "{{ ol.quantity }}"> 
+                    </div>
+
+                    <div class="d-flex d-inline-flex justify-content-between form-group" style="width: 45vw;">
+                        <label for="quantity"> Quantity: </label>
+                        <label style="margin-right: 130px;"> {{ ol.total }} </label>
+                    </div>
+                                                          
+                    <div>
+                        <button type="submit" class="btn btn-secondary">Add / Edit Order</button>
+                    </div>
+                    
+                    <div>
+                        <a href="{% url 'main' %}"><button type="button" class="btn btn-secondary">Back to Main</button></a>
+                    </div> 
+                </div>  
+            </form>                               
+        </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="{% static '/bootstrap/jquery-3.4.1.slim.min.js' %}"></script>
+        <script src="{% static '/bootstrap/popper.min.js' %}"></script>
+        <script src="{% static '/bootstrap/js/bootstrap.min.js' %}"></script>
+        <link rel="stylesheet" href="{% static '/bootstrap/css/bootstrap.css' %}">
+    </head>
+    <body>
+        <div class="container-fluid" >
+            <div class="d-flex flex-column justify-content-around align-items-center"style="height: 100vh;">
+                <div class="">
+                    <h1>View Customers</h1>
+                </div>
+                <div class="table-responsive" style="width: 75vw; height: 32vh;">
+                    <table class="table table-bordered mt-5px text-center" style="width: 100%">
+                        <thead class="thead-light">
+                            <th style="width: 20%;"> Name </th>
+                            <th style="width: 40%;"> Address </th>
+                            <th style="width: 10%;"> City </th>
+                            <th style="width: 10%;"> Actions </th>
+                            <th style="width: 20%;"> </th>
+    
+                        </thead>
+                        <tbody>
+                            {% for c in customer %}
+                            <tr>
+                                <td> {{ c.name }} </td>
+                                <td> {{ c.city}} </td>
+                                <td> {{ c.address }} </td>
+                                <td> <a href="{% url 'editcustomer' pk=c.pk %}">Edit</a> </td>
+                                <td> <a href="{% url 'viewcustomerorders' pk=c.pk %}">View All Orders</a> </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+    
+                <div class="">
+                    <a href="{% url 'addcustomer' %}" ><button class="btn btn-secondary" style="width: 20vw;"> Add Customer </button></a>
+                </div>
+                <div class="">
+                    <a href="{% url 'main' %}"><button class="btn btn-secondary" style="width: 20vw;"> Back to Main </button></a>
+                </div>
+            </div>
+
+            
+        </div>
+
+
+    </body>
+</html>

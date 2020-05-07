@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="{% static '/bootstrap/jquery-3.4.1.slim.min.js' %}"></script>
+        <script src="{% static '/bootstrap/popper.min.js' %}"></script>
+        <script src="{% static '/bootstrap/js/bootstrap.min.js' %}"></script>
+        <link rel="stylesheet" href="{% static '/bootstrap/css/bootstrap.css' %}">
+    </head>
+    <body>
+        <div class="container-fluid" >
+            <div class="d-flex flex-column justify-content-around align-items-center"style="height: 100vh;">
+                <div class="">
+                    <h1>View Orders of: <span style="text-decoration: underline;">{% for c in c %} {{ c.name }} {% endfor %}</span></h1>
+                </div>
+                <div class="table-responsive" style="width: 75vw; height: 32vh;">
+                    <table class="table table-bordered mt-5px text-center" style="width: 100%">
+                        <thead class="thead-light">
+                            <th style="width: 25%;"> Order Number (PK) </th>
+                            <th style="width: 20%;"> Ordered By </th>
+                            <th style="width: 10%;"> Total </th>
+                            <th style="width: 25%;"> Mode of Payment </th>
+                            <th style="width: 20%;"> Ordered at</th>
+                        </thead>
+                        <tbody>
+                            {% for o in order %}
+                            <tr>
+                                <td> {{ o.pk }} </td>
+                                <td> {{ o.cust_order.name }} </td>
+                                {% for ol in orderline %}
+                                    {% if o.pk == ol.ord.pk %}
+                                    <td> {{ol.total}} </td>
+                                    {% endif %}
+                                {% endfor %}
+                                <td> {{ o.mode_payment }} </td>
+                                <td> {{ o.ordered_at}} </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="d-flex d-inline-flex justify-content-center form-group" style="width: 45vw;">
+                    <h1> Total: <span style="text-decoration: underline;">{{ sum }}</span></h1>
+                </div>
+                <div>
+                    <a href="{% url 'main' %}"><button type="button" class="btn btn-secondary">Back to Main</button></a>
+                </div> 
+            </div>
+
+            
+        </div>
+
+
+    </body>
+</html>

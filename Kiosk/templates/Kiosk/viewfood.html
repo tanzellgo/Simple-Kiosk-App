@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="{% static '/bootstrap/jquery-3.4.1.slim.min.js' %}"></script>
+        <script src="{% static '/bootstrap/popper.min.js' %}"></script>
+        <script src="{% static '/bootstrap/js/bootstrap.min.js' %}"></script>
+        <link rel="stylesheet" href="{% static '/bootstrap/css/bootstrap.css' %}">
+    </head>
+    <body>
+        <div class="container-fluid" >
+            <div class="d-flex flex-column justify-content-around align-items-center"style="height: 100vh;">
+                <div class="">
+                    <h1>View All Food</h1>
+                </div>
+                <div class="table-responsive" style="width: 75vw; height: 32vh;">
+                    <table class="table table-bordered mt-5px text-center" style="width: 100%">
+                        <thead class="thead-light">
+                            <th style="width: 20%;"> Name </th>
+                            <th style="width: 60%;"> Description </th>
+                            <th style="width: 10%;"> Price </th>
+                            <th style="width: 10%;"> Actions </th>
+                        </thead>
+                        <tbody>
+                            {% for f in food %}
+                            <tr>
+                                <td> {{ f.name }} </td>
+                                <td> {{ f.description}} </td>
+                                <td> {{ f.price }} </td>
+                                <td> <a href="{% url 'editfood' pk=f.pk %}">Edit</a> </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+    
+                <div class="">
+                    <a href="{% url 'addfood' %}" ><button class="btn btn-secondary" style="width: 20vw;"> Add Food </button></a>
+                </div>
+                <div class="">
+                    <a href="{% url 'main' %}"><button class="btn btn-secondary" style="width: 20vw;"> Back to Main </button></a>
+                </div>
+            </div>
+
+            
+        </div>
+
+
+    </body>
+</html>
